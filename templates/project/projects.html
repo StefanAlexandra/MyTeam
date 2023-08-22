@@ -1,0 +1,111 @@
+{% extends 'base_with_navbar.html' %}
+
+{% load static %}
+
+{% block title %} Projects {% endblock %}
+
+{% block content %}
+    <div class="card_projects card shadow">
+        <div class="card-body">
+            <h4 class="text-center mb-5">Projects</h4>
+            {% if projects %}
+                <form method="get">
+                    <div class="table-filter">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">Projects {{ form_filters.project_title }}</li>
+                                    <li class="list-inline-item">Status {{ form_filters.status }}</li>
+                                    <li class="list-inline-item">Priority {{ form_filters.priority }}</li>
+                                    <li class="list-inline-item">(Planned Start)
+                                        From {{ form_filters.planned_start_gte }}</li>
+                                    <li class="list-inline-item">To {{ form_filters.planned_start_lte }}</li>
+                                    <li class="list-inline-item">(Planned End)
+                                        From {{ form_filters.planned_end_gte }}</li>
+                                    <li class="list-inline-item">To {{ form_filters.planned_end_lte }}</li>
+                                    <li class="list-inline-item">
+                                        <button type="submit" class="btn btn-icon"><i class='bx bx-search-alt'></i>
+                                        </button>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="{% url 'projects' %}" class="btn btn-icon"><i
+                                                class='bx bx-revision'></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Project</th>
+                            <th>Planned Start</th>
+                            <th>Planned End</th>
+                            <th>Status</th>
+                            <th>Team</th>
+                            <th>Priority</th>
+                            <th>Completion</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for project in projects %}
+                            <tr>
+                                <td class="align-middle">{{ project.project_title }}</td>
+                                <td class="align-middle">{{ project.planned_start|date:"d-m-Y" }}</td>
+                                <td class="align-middle">{{ project.planned_end|date:"d-m-Y" }}</td>
+                                <td class="align-middle">{{ project.status }}</td>
+                                <td class="text-truncate align-middle">
+                                    <ul class="list-unstyled order-list m-b-0">
+                                        {% for member in project.members.all %}
+                                            {% if member.userprofile.profile_picture %}
+                                                <li class="team-member mt-3">
+                                                    <img class="rounded-circle"
+                                                         src="{{ member.userprofile.profile_picture.url }}" alt="user">
+                                                </li>
+                                            {% else %}
+                                                <li class="team-member mt-3">
+                                                    <img class="rounded-circle" src="{% static 'images/profile.png' %}"
+                                                         alt="user"></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td class="align-middle">
+                                    {% if project.priority == "Low" %}
+                                        <div class="priority-low">{{ project.priority }}</div>
+                                    {% elif project.priority == "Medium" %}
+                                        <div class="priority-medium">{{ project.priority }}</div>
+                                    {% elif project.priority == "High" %}
+                                        <div class="priority-high">{{ project.priority }}</div>
+                                    {% endif %}
+                                </td>
+                                <td class="align-middle">
+                                    <div class="progress-text">{{ project.completion }}%</div>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: {{ project.completion }}%;"></div>
+                                    </div>
+                                </td>
+                                <td class="align-middle">
+                                    <a href="{% url 'project-details' project.id %}" class="action-icon"><i
+                                            class='bx bx-detail'></i></a>
+                                    {% if user.is_manager %}
+                                        <a href="{% url 'update-project' project.id %}" class="action-icon"><i
+                                                class='bx bx-edit'></i></a>
+                                        <a href="{% url 'delete-project' project.id %}" class="action-icon"><i
+                                                class='bx bx-x'></i></a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <h4 class="text-center">No records yet</h4>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

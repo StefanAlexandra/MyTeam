@@ -1,0 +1,56 @@
+{% extends 'base_with_navbar.html' %}
+
+{% load static %}
+
+{% block title %} Project Details {% endblock %}
+
+{% block content %}
+    <div class="card shadow">
+        <div class="card-body">
+            <h4 class="text-center mb-5">Project Details</h4>
+            <h6 class="m-b-20 p-b-5 b-b-default f-w-600">{{ project.project_title }}</h6>
+            <p class="mb-1 mt-3">Description</p>
+            <p class="text-muted mb-3 fw-light">{{ project.project_description }}</p>
+            <ul class="list-inline">
+                <li class="list-inline-item mt-4">Date:</li>
+                <li class="list-inline-item text-muted fw-light">{{ project.planned_start }}
+                    - {{ project.planned_end }}</li>
+            </ul>
+            <ul class="list-inline">
+                <li class="list-inline-item">Status:</li>
+                <li class="list-inline-item text-muted fw-light">{{ project.status }}</li>
+            </ul>
+            <ul class="list-inline">
+                <li class="list-inline-item">Complexity:</li>
+                <li class="list-inline-item text-muted fw-light">{{ project.complexity }}</li>
+            </ul>
+            <ul class="list-inline">
+                <li class="list-inline-item">Priority:</li>
+                <li class="list-inline-item text-muted fw-light">{{ project.priority }}</li>
+            </ul>
+            <p class="mb-1 mb-3">Members:</p>
+            <ul class="list-inline team-list">
+                {% for member in project.members.all %}
+                    {% if member.userprofile.profile_picture %}
+                        <li class="list-inline-item team-member team-member-sm">
+                            <img src="{{ member.userprofile.profile_picture.url }}" class="rounded-circle"
+                                 alt="Avatar">
+                            <p class="text-muted">{{ member.userprofile }}</p>
+                            <p class="text-muted">{{ member.userprofile.job_title }}</p>
+                        </li>
+                    {% else %}
+                        <li class="list-inline-item team-member team-member-sm">
+                            <img src="{% static 'images/profile.png' %}" class="rounded-circle"
+                                 alt="Avatar">
+                            <p class="name text-muted">{{ member.userprofile }}</p>
+                            <p class="job text-muted">{{ member.userprofile.job_title }}</p>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <div class="button-container text-center mt-5">
+                <a href="{% url 'projects' %}" class="btn btn-success">Back</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

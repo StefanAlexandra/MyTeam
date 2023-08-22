@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %} Manager Sign Up {% endblock %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="card-body">
+            <h4 class="text-center mb-5">Manager Sign up</h4>
+            {{ form.as_p }}
+            <div class="button-container text-center mt-5">
+                <button type="submit" class="btn btn-primary">Sign up</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

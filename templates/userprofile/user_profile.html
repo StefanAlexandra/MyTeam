@@ -1,0 +1,83 @@
+{% extends 'base_with_navbar.html' %}
+
+{% load static %}
+
+{% block title %} Profile {% endblock %}
+
+{% block content %}
+    <div class="card shadow">
+        <div class="card-body">
+            {% if profile.profile_picture %}
+                <div class="d-flex align-items-center justify-content-center profile-image-wrapper">
+                    <img class="profile-image rounded-circle" src="{{ profile.profile_picture.url }}"
+                         alt="profile image">
+                </div>
+            {% else %}
+                <div class="d-flex align-items-center justify-content-center profile-image-wrapper">
+                <img class="profile-image rounded-circle" src="{% static 'images/profile.png' %}"
+                     alt="profile image">
+            {% endif %}
+            <h3 class="card-title text-center mt-4 mb-0">{{ profile }}</h3>
+            <p class="colored text-center">{{ profile.job_title }}</p>
+            <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Personal Information</h6>
+            <p class="mb-1 mt-3">First Name</p>
+            <p class="text-muted mb-3 fw-light">{{ profile.user.first_name }}</p>
+            <p class="mb-1">Last Name</p>
+            <p class="text-muted mb-3 fw-light">{{ profile.user.last_name }}</p>
+            <p class="mb-1">Birth Date</p>
+            <p class="text-muted mb-3 fw-light">{{ profile.birth_date|date:"d-m-Y" }}</p>
+            <p class="mb-1">Age</p>
+            <p class="text-muted mb-3 fw-light">{{ profile.calculate_age }}</p>
+            <p class="mb-1">Gender</p>
+            <p class="text-muted mb-3 fw-light">{{ profile.gender }}</p>
+            <p class="mb-1">Country</p>
+            <p class="text-muted mb-3 fw-light">{{ profile.country }}</p>
+            <p class="mb-1">County</p>
+            <p class="text-muted mb-3 fw-light">{{ profile.county }}</p>
+            <p class="mb-1">City</p>
+            <p class="text-muted mb-3 fw-light">{{ profile.city }}</p>
+            <p class="mb-1">Street</p>
+            <p class="text-muted mb-3 fw-light">{{ profile.street }}</p>
+            <p class="mb-1">Street Number</p>
+            <p class="text-muted mb-3 fw-light">{{ profile.street_number }}</p>
+            <p class="mb-1">Address</p>
+            <p class="text-muted mb-3 fw-light">{{ profile.address }}</p>
+            <p class="mb-1">Phone</p>
+            <p class="text-muted mb-3 fw-light">{{ profile.phone }}</p>
+            <p class="mb-1">Personal Email</p>
+            <p class="text-muted mb-4 fw-light">{{ profile.personal_email }}</p>
+            <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Work Information</h6>
+            <p class="mb-1 mt-3">Start Date</p>
+            <p class="text-muted mb-3 fw-light">{{ profile.start_date|date:"d-m-Y" }}</p>
+            <p class="mb-1 mt-3">Time Of Employment</p>
+            <p class="text-muted mb-3 fw-light">{{ profile.calculate_time_of_employment }}</p>
+            <p class="mb-1">Work Email</p>
+            <p class="text-muted mb-3 fw-light">{{ profile.user.email }}</p>
+            <p class="mb-1">Job Title</p>
+            <p class="text-muted mb-3 fw-light">{{ profile.job_title }}</p>
+            <p class="mb-1">Department</p>
+            <p class="text-muted mb-3 fw-light">{{ profile.department }}</p>
+            {% if profile.superior %}
+                <p class="mb-1">Superior</p>
+                <p class="text-muted mb-3 fw-light">{{ profile.superior }}</p>
+            {% endif %}
+            {% if profile.job_description %}
+                <p class="mb-1">Job Description</p>
+                <p class="text-muted mb-3 fw-light"><a class="link_file" href='{{ profile.job_description.url }}'>Job
+                    Description -
+                    File</a></p>
+            {% endif %}
+            {% if profile.resume %}
+                <p class="mb-1">Resume</p>
+                <p class="text-muted mb-3 fw-light"><a class="link_file" href='{{ profile.resume.url }}'>Resume -
+                    File</a>
+                </p>
+            {% endif %}
+            <div class="button-container text-center mt-5">
+                <a href="{% url 'update-profile' profile.pk %}" class="btn btn-primary m-2">Update profile</a>
+                <a href="{% url 'password-change-form' %}" class="btn btn-primary m-2">Change password</a>
+            </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

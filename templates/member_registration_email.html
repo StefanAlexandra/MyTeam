@@ -1,0 +1,52 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #14213D;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+        }
+
+        .header {
+            background-color: #FCA311;
+            color: #ffffff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .content {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Welcome to Myteam!</h1>
+    </div>
+    <div class="content">
+        <br>
+        <p>Hello!</p>
+        <p>Here is your username: {{ username }}.</p>
+        <p>To complete your registration, please set a password for your account:</p>
+        <div>
+            <a href="{{ set_password }}">Set Password</a>
+        </div>
+        <p>If you didn't register on our website, please ignore this email.</p>
+        <p>Best regards,<br>MyTeam</p>
+    </div>
+</div>
+</body>
+</html>

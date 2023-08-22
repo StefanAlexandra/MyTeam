@@ -1,0 +1,105 @@
+{% extends 'base_with_navbar.html' %}
+
+{% load static %}
+
+{% block title %} Requests {% endblock %}
+
+{% block content %}
+    <div class="card_projects card shadow">
+        <div class="card-body">
+            <h4 class="text-center mb-5">Requests</h4>
+            {% if requests_list %}
+                <form method="get">
+                    <div class="table-filter">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">Type of request {{ form_filters.type }}</li>
+                                    <li class="list-inline-item">Status {{ form_filters.status }}</li>
+                                    <li class="list-inline-item">
+                                        <button type="submit" class="btn btn-icon"><i class='bx bx-search-alt'></i>
+                                        </button>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="{% url 'requests-list' %}" class="btn btn-icon"><i
+                                                class='bx bx-revision'></i></a>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Requester</th>
+                            <th>Type of request</th>
+                            <th>Created at</th>
+                            <th>Status</th>
+                            <th>To manager</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for request in requests_list %}
+                            <tr>
+                                <td class="text-truncate assigned-to">
+                                    <ul class="list-unstyled order-list m-b-0">
+                                        {% if request.requester.userprofile.profile_picture %}
+                                            <li class="team-member mt-3">
+                                                <img class="rounded-circle"
+                                                     src="{{ request.requester.userprofile.profile_picture.url }}"
+                                                     alt="user"> {{ request.requester.userprofile }}</li>
+                                        {% else %}
+                                            <li class="team-member">
+                                                <img class="rounded-circle" src="{% static 'images/profile.png' %}"
+                                                     alt="user"> {{ request.requester.userprofile }}</li>
+                                        {% endif %}
+                                    </ul>
+                                </td>
+                                <td class="align-middle">{{ request.type }}</td>
+                                <td class="align-middle">{{ request.created_at|date:"d-m-Y H:m" }}</td>
+                                <td class="align-middle">
+                                    {% if request.status == "Pending" %}
+                                        <div class="pending">{{ request.status }}</div>
+                                    {% elif request.status == "Approved" %}
+                                        <div class="approved">{{ request.status }}</div>
+                                    {% elif request.status == "Declined" %}
+                                        <div class="declined">{{ request.status }}</div>
+                                    {% endif %}
+                                </td>
+                                <td class="text-truncate assigned-to">
+                                    <ul class="list-unstyled order-list m-b-0">
+                                        {% if request.manager.userprofile.profile_picture %}
+                                            <li class="team-member mt-3">
+                                                <img class="rounded-circle"
+                                                     src="{{ request.manager.userprofile.profile_picture.url }}"
+                                                     alt="user"> {{ request.manager.userprofile }}</li>
+                                        {% else %}
+                                            <li class="team-member">
+                                                <img class="rounded-circle" src="{% static 'images/profile.png' %}"
+                                                     alt="user"> {{ request.manager.userprofile }}</li>
+                                        {% endif %}
+                                    </ul>
+                                </td>
+                                <td class="align-middle">
+                                    <a href="{% url 'request-details' request.id %}" class="action-icon"><i
+                                            class='bx bx-detail'></i></a>
+                                    <a href="{% url 'update-request' request.id %}" class="action-icon"><i
+                                            class='bx bx-edit'></i></a>
+                                    {% if user.is_member %}
+                                        <a href="{% url 'delete-request' request.id %}" class="action-icon"><i
+                                                class='bx bx-x'></i></a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <h4 class="text-center">No records yet</h4>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

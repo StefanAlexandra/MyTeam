@@ -1,0 +1,35 @@
+{% extends 'base_with_navbar.html' %}
+
+{% block title %} Update Project {% endblock %}
+
+{% block content %}
+    <div class="card shadow">
+        <form method="post">
+            {% csrf_token %}
+            <div class="card-body">
+                <h4 class="text-center mb-5">Update Task</h4>
+                {% if user.is_manager %}
+                    {{ form.as_p }}
+                {% elif user.is_member %}
+                    {{ form.title.label_tag }}
+                    <div class="form-control mb-3">{{ form.instance.title }}</div>
+                    {{ form.related_project.label_tag }}
+                    <div class="form-control mb-3">{{ form.instance.related_project }}</div>
+                    {{ form.stdescription.label_tag }}
+                    <div class="form-control mb-3">{{ form.instance.description }}</div>
+                    {{ form.estimated_hours.label_tag }}
+                    <div class="form-control mb-3">{{ form.instance.estimated_hours }}</div>
+                    {{ form.as_p }}
+                    {{ form.priority.label_tag }}
+                    <div class="form-control mb-3">{{ form.instance.priority }}</div>
+                    {{ form.assigned_to.label_tag }}
+                    <div class="form-control mb-3">{{ form.instance.assigned_to }}</div>
+                {% endif %}
+                <div class="button-container text-center mt-5">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                    <a href="{% url 'tasks' %}" class="btn btn-success">Back</a>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

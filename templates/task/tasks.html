@@ -1,0 +1,103 @@
+{% extends 'base_with_navbar.html' %}
+
+{% load static %}
+
+{% block title %} Tasks {% endblock %}
+
+{% block content %}
+    <div class="card_projects card shadow">
+        <div class="card-body">
+            <h4 class="text-center mb-5">Tasks</h4>
+            {% if tasks %}
+                <form method="get">
+                    <div class="table-filter">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">Task {{ form_filters.title }}</li>
+                                    <li class="list-inline-item">Status {{ form_filters.status }}</li>
+                                    <li class="list-inline-item">Priority {{ form_filters.priority }}</li>
+                                    <li class="list-inline-item">Related Project {{ form_filters.related_project }}</li>
+                                    <li class="list-inline-item">Assigned To {{ form_filters.assigned_to }}</li>
+                                    <li class="list-inline-item">Created From{{ form_filters.created_at_gte }}</li>
+                                    <li class="list-inline-item">To {{ form_filters.created_at_lte }}</li>
+                                    <li class="list-inline-item">
+                                        <button type="submit" class="btn btn-icon"><i class='bx bx-search-alt'></i>
+                                        </button>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="{% url 'tasks' %}" class="btn btn-icon"><i
+                                                class='bx bx-revision'></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Assigned To</th>
+                            <th>Task</th>
+                            <th>Created At</th>
+                            <th>Status</th>
+                            <th>Priority</th>
+                            <th>Related Project</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for task in tasks %}
+                            <tr>
+                                <td class="text-truncate assigned-to">
+                                    <ul class="list-unstyled order-list m-b-0">
+                                        {% if task.assigned_to.userprofile.profile_picture %}
+                                            <li class="team-member mt-3">
+                                                <img class="rounded-circle"
+                                                     src="{{ task.assigned_to.userprofile.profile_picture.url }}"
+                                                     alt="user"> {{ task.assigned_to.userprofile }}</li>
+                                        {% else %}
+                                            <li class="team-member">
+                                                <img class="rounded-circle" src="{% static 'images/profile.png' %}"
+                                                     alt="user"> {{ task.assigned_to.userprofile }}</li>
+                                        {% endif %}
+                                    </ul>
+                                </td>
+                                <td class="align-middle">{{ task.title }}</td>
+
+                                <td class="align-middle">{{ task.created_at|date:'d-m-Y H:m' }}</td>
+
+                                <td class="align-middle">{{ task.status }}</td>
+
+                                <td class="align-middle">
+                                    {% if task.priority == "Low" %}
+                                        <div class="priority-low">{{ task.priority }}</div>
+                                    {% elif task.priority == "Medium" %}
+                                        <div class="priority-medium">{{ task.priority }}</div>
+                                    {% elif task.priority == "High" %}
+                                        <div class="priority-high">{{ task.priority }}</div>
+                                    {% endif %}
+                                </td>
+                                <td class="align-middle">{{ task.related_project }}</td>
+                                <td class="align-middle">
+                                    <a href="{% url 'task-details' task.id %}" class="action-icon"><i
+                                            class='bx bx-detail'></i></a>
+                                    <a href="{% url 'update-task' task.id %}" class="action-icon"><i
+                                            class='bx bx-edit'></i></a>
+                                    {% if user.is_manager %}
+                                        <a href="{% url 'delete-task' task.id %}" class="action-icon"><i
+                                                class='bx bx-x'></i></a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <h4 class="text-center">No records yet</h4>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

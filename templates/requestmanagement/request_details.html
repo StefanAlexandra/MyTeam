@@ -1,0 +1,50 @@
+{% extends 'base_with_navbar.html' %}
+
+{% load static %}
+
+{% block title %} Request Details {% endblock %}
+
+{% block content %}
+    <div class="card shadow">
+        <div class="card-body">
+            <h4 class="text-center mb-5">Request Details</h4>
+            <h6 class="m-b-20 p-b-5 b-b-default f-w-600">{{ request.type }}</h6>
+            <p class="mb-1 mt-3">Details</p>
+            <p class="text-muted mb-3 fw-light">{{ request.details }}</p>
+            {% if request.start_date %}
+                <ul class="list-inline">
+                    <li class="list-inline-item">Start date:</li>
+                    <li class="list-inline-item text-muted fw-light">{{ request.start_date|date:'d-m-Y' }}</li>
+                </ul>
+            {% endif %}
+            {% if request.end_date %}
+                <ul class="list-inline">
+                    <li class="list-inline-item">End date:</li>
+                    <li class="list-inline-item text-muted fw-light">{{ request.end_date|date:'d-m-Y' }}</li>
+                </ul>
+            {% endif %}
+            <ul class="list-inline">
+                <li class="list-inline-item">Status:</li>
+                <li class="list-inline-item text-muted fw-light">{{ request.status }}</li>
+            </ul>
+            <p class="mb-1 mt-3">Comments</p>
+            {% if request.comments %}
+                <p class="text-muted mb-3 fw-light">{{ request.comments }}</p>
+            {% else %}
+                <p class="text-muted mb-3 fw-light">----</p>
+            {% endif %}
+            <ul class="list-inline">
+                <li class="list-inline-item">Created at:</li>
+                <li class="list-inline-item text-muted fw-light">{{ request.created_at|date:'d-m-Y H:m' }}</li>
+            </ul>
+            <ul class="list-inline">
+                <li class="list-inline-item">Last update:</li>
+                <li class="list-inline-item text-muted fw-light">{{ request.updated_at|date:'d-m-Y H:m' }}</li>
+            </ul>
+            <div class="button-container text-center mt-5">
+                <a href="{% url 'requests-list' %}" class="btn btn-success">Back</a>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,148 @@
+{% load static %}
+
+<div class="sidebar close">
+    <div class="logo-details">
+        <i class='x-ri-team-line'></i>
+        <span class="logo_name">MyTeam</span>
+    </div>
+    <ul class="nav-links">
+        {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'user-profile' user.pk %}">
+                    <i class='bx bxs-user-detail'></i>
+                    <span class="link_name">Profile</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'user-profile' user.pk %}">Profile</a></li>
+                </ul>
+            </li>
+        {% endif %}
+        {#        <li>#}
+        {#            <a href="#">#}
+        {#                <i class='bx bx-history'></i>#}
+        {#                <span class="link_name">Timeline</span>#}
+        {#            </a>#}
+        {#            <ul class="sub-menu blank">#}
+        {#                <li><a class="link_name" href="#">Timeline</a></li>#}
+        {#            </ul>#}
+        {#        </li>#}
+        {#                <li>#}
+        {#                    <a href="{% url 'dashboard' %}">#}
+        {#                        <i class='bx bx-grid-alt'></i>#}
+        {#                        <span class="link_name">Dashboard</span>#}
+        {#                    </a>#}
+        {#                    <ul class="sub-menu blank">#}
+        {#                        <li><a class="link_name" href="{% url 'dashboard' %}">Dashboard</a></li>#}
+        {#                    </ul>#}
+        {#                </li>#}
+        <li>
+            <div class="iocn-link">
+                <a href="{% url 'members' %}">
+                    <i class='bx bx-group'></i>
+                    <span class="link_name">Members</span>
+                </a>
+                {% if user.is_manager %}
+                    <i class='bx bxs-chevron-down arrow'></i>
+                {% endif %}
+            </div>
+            {% if user.is_manager %}
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="{% url 'members' %}">Members</a></li>
+                    <li><a href="{% url 'add-member' %}">Add member</a></li>
+                </ul>
+            {% elif user.is_member %}
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'members' %}">Members</a></li>
+                </ul>
+            {% endif %}
+        </li>
+        <li>
+            <div class="iocn-link">
+                <a href="{% url 'projects' %}">
+                    <i class='bx bx-folder'></i>
+                    <span class="link_name">Projects</span>
+                </a>
+                {% if user.is_manager %}
+                    <i class='bx bxs-chevron-down arrow'></i>
+                {% endif %}
+            </div>
+            {% if user.is_manager %}
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="{% url 'projects' %}">Projects</a></li>
+                    <li><a href="{% url 'add-project' %}">Add project</a></li>
+                </ul>
+            {% elif user.is_member %}
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'projects' %}">Projects</a></li>
+                </ul>
+            {% endif %}
+        </li>
+        <li>
+            <div class="iocn-link">
+                <a href="{% url 'tasks' %}">
+                    <i class='bx bx-task'></i>
+                    <span class="link_name">Tasks</span>
+                </a>
+                {% if user.is_manager %}
+                    <i class='bx bxs-chevron-down arrow'></i>
+                {% endif %}
+            </div>
+            {% if user.is_manager %}
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="{% url 'tasks' %}">Tasks</a></li>
+                    <li><a href="{% url 'assign-task' %}">Assign task</a></li>
+                </ul>
+            {% elif user.is_member %}
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'tasks' %}">Tasks</a></li>
+                </ul>
+            {% endif %}
+        </li>
+        <li>
+            <div class="iocn-link">
+                <a href="{% url 'requests-list' %}">
+                    <i class='bx bx-spreadsheet'></i>
+                    <span class="link_name">Requests</span>
+                </a>
+                {% if user.is_member %}
+                    <i class='bx bxs-chevron-down arrow'></i>
+                {% endif %}
+            </div>
+            {% if user.is_member %}
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="{% url 'requests-list' %}">Requests</a></li>
+                    <li><a href="{% url 'make-request' %}">Make request</a></li>
+                </ul>
+            {% elif user.is_manager %}
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'requests-list' %}">Requests</a></li>
+                </ul>
+            {% endif %}
+        </li>
+        <li>
+            <a href="{% url 'logout' %}">
+                <i class='bx bx-log-out'></i>
+                <span class="link_name">Logout</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </li>
+        <li>
+            <div class="profile-details">
+                <div class="profile-content">
+                    {% if profile.profile_picture %}
+                        <img src="{{ profile.profile_picture.url }}?v=" alt="profile image" id="profile-image">
+                    {% else %}
+                        <img src="{% static 'images/profile_white.png' %}" alt="profile image">
+                    {% endif %}
+                </div>
+                <div class="name-job">
+                    <div class="profile_name">{{ profile.user.first_name }} {{ profile.user.last_name|slice:":1" }}.</div>
+                    <div class="job">{{ profile.job_title }}</div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+

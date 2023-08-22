@@ -1,0 +1,59 @@
+{% extends 'base_with_navbar.html' %}
+
+{% load static %}
+
+{% block title %} Project Details {% endblock %}
+
+{% block content %}
+    <div class="card shadow">
+        <div class="card-body">
+            <h4 class="text-center mb-5">Task Details</h4>
+
+            <h6 class="m-b-20 p-b-5 b-b-default f-w-600">{{ task.title }}</h6>
+            <p class="mb-1 mt-3">Description</p>
+            <p class="text-muted mb-3 fw-light">{{ task.description }}</p>
+            <ul class="list-inline">
+                <li class="list-inline-item">Related project:</li>
+                <li class="list-inline-item text-muted fw-light">{{ task.related_project }}</li>
+            </ul>
+            <ul class="list-inline">
+                <li class="list-inline-item">Created at:</li>
+                <li class="list-inline-item text-muted fw-light">{{ task.created_at|date:'d-m-Y h:m' }}</li>
+            </ul>
+            <ul class="list-inline">
+                <li class="list-inline-item">Estimated hours:</li>
+                <li class="list-inline-item text-muted fw-light">{{ task.estimated_hours }}</li>
+            </ul>
+            <ul class="list-inline">
+                <li class="list-inline-item">Priority:</li>
+                <li class="list-inline-item text-muted fw-light">{{ task.priority }}</li>
+            </ul>
+            <ul class="list-inline">
+                <li class="list-inline-item">Status:</li>
+                <li class="list-inline-item text-muted fw-light">{{ task.status }}</li>
+            </ul>
+            <p class="mb-1 mb-3">Assigned to:</p>
+            <ul class="list-inline team-list">
+                {% if task.assigned_to.userprofile.profile_picture %}
+                    <li class="list-inline-item team-member team-member-sm">
+                        <img src="{{ task.assigned_to.userprofile.profile_picture.url }}" class="rounded-circle"
+                             alt="Avatar">
+                        <p class="text-muted">{{ task.assigned_to.userprofile }}</p>
+                        <p class="text-muted">{{ task.assigned_to.userprofile.job_title }}</p>
+                    </li>
+                {% else %}
+                    <li class="list-inline-item team-member team-member-sm">
+                        <img src="{% static 'images/profile.png' %}" class="rounded-circle"
+                             alt="Avatar">
+                        <p class="name text-muted">{{ task.assigned_to.userprofile }}</p>
+                        <p class="job text-muted">{{ task.assigned_to.userprofile.job_title }}</p>
+                    </li>
+                {% endif %}
+            </ul>
+            <div class="button-container text-center mt-5">
+                <a href="{% url 'tasks' %}" class="btn btn-success">Back</a>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

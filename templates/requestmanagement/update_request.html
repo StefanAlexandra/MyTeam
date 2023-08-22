@@ -1,0 +1,40 @@
+{% extends 'base_with_navbar.html' %}
+
+{% block title %} Update Request {% endblock %}
+
+{% block content %}
+    <div class="card shadow">
+        <div class="card-body">
+            <h4 class="text-center mb-5">Update Request</h4>
+            <form method="post">
+                {% csrf_token %}
+                {% if user.is_member %}
+                    {{ form.as_p }}
+                    <div class="button-container text-center mt-5">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+                {% elif user.is_manager %}
+                    {{ form.type.label_tag }}
+                    <div class="form-control mb-3">{{ form.instance.type }}</div>
+                    {% if form.instance.start_date %}
+                        {{ form.start_date.label_tag }}
+                        <div class="form-control mb-3">{{ form.instance.start_date|date:'d-m-Y' }}</div>
+                    {% endif %}
+                    {% if form.instance.end_date %}
+                        {{ form.start_date.label_tag }}
+                        <div class="form-control mb-3">{{ form.instance.end_date|date:'d-m-Y' }}</div>
+                    {% endif %}
+                    {{ form.details.label_tag }}
+                    <div class="form-control mb-3">{{ form.instance.details }}</div>
+                    {{ form.status.label_tag }}
+                    <div class="form-control mb-3">{{ form.instance.status }}</div>
+                    {{ form.as_p }}
+                    <div class="button-container text-center mt-5">
+                        <button type="submit" class="btn btn-success" name="approve">Approve</button>
+                        <button type="submit" class="btn btn-success" name="decline">Decline</button>
+                    </div>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+{% endblock %}

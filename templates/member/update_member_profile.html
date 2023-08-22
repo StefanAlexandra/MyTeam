@@ -1,0 +1,142 @@
+{% extends 'base_with_navbar.html' %}
+
+{% block title %} Edit Profile {% endblock %}
+
+{% block content %}
+    <div class="card shadow">
+        <div class="card-body">
+            <h4 class="text-center mb-5">Edit Profile</h4>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Personal Information</h6>
+                <label for="{{ form.profile_picture.id_for_label }}" class="mb-1 mt-3">Profile Picture</label>
+                <div class="mb-3">
+                    {{ form.profile_picture }}
+                </div>
+                <label for="{{ form.username.id_for_label }}" class="mb-1">Username</label>
+                <div class="mb-3">
+                    <input type="text" name="{{ form.username.name }}" id="{{ form.username.id_for_label }}"
+                           class="form-control" value="{{ form.username.value }}">
+                </div>
+                <label for="{{ form.email.id_for_label }}" class="mb-1">Email</label>
+                <div class="mb-3">
+                    <input type="text" name="{{ form.email.name }}" id="{{ form.email.id_for_label }}"
+                           class="form-control" value="{{ form.email.value }}">
+                </div>
+                <label for="{{ form.first_name.id_for_label }}" class="mb-1">First Name</label>
+                <div class="mb-3">
+                    <input type="text" name="{{ form.first_name.name }}" id="{{ form.first_name.id_for_label }}"
+                           class="form-control" value="{{ form.first_name.value }}">
+                </div>
+                <label for="{{ form.last_name.id_for_label }}" class="mb-1">Last Name</label>
+                <div class="mb-3">
+                    <input type="text" name="{{ form.last_name.name }}" id="{{ form.last_name.id_for_label }}"
+                           class="form-control" value="{{ form.last_name.value }}">
+                </div>
+                <label for="{{ form.birth_date.id_for_label }}" class="mb-1">Birth Date (month-day-year)</label>
+                <div class="mb-3">
+                    {% if form.birth_date.value %}
+                        <input type="date" name="{{ form.birth_date.name }}" id="{{ form.birth_date.id_for_label }}"
+                               class="form-control" value="{{ form.birth_date.value|date:"Y-m-d" }}">
+                    {% else %}
+                        <input type="date" name="{{ form.birth_date.name }}" id="{{ form.birth_date.id_for_label }}"
+                               class="form-control">
+                    {% endif %}
+                </div>
+                <label for="{{ form.gender.id_for_label }}" class="mb-1">Gender</label>
+                <div class="mb-3">
+                    <select name="{{ form.gender.name }}" id="{{ form.gender.id_for_label }}" class="form-control">
+                        {% for value, label in form.gender.field.choices %}
+                            <option value="{{ value }}"
+                                    {% if value == form.gender.value %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <label for="{{ form.country.id_for_label }}" class="mb-1">Country</label>
+                <div class="mb-3">
+                    <input type="text" name="{{ form.country.name }}" id="{{ form.country.id_for_label }}"
+                           class="form-control" value="{{ form.country.value }}">
+                </div>
+                <label for="{{ form.county.id_for_label }}" class="mb-1">County</label>
+                <div class="mb-3">
+                    <input type="text" name="{{ form.county.name }}" id="{{ form.county.id_for_label }}"
+                           class="form-control" value="{{ form.county.value }}">
+                </div>
+                <label for="{{ form.city.id_for_label }}" class="mb-1">City</label>
+                <div class="mb-3">
+                    <input type="text" name="{{ form.city.name }}" id="{{ form.city.id_for_label }}"
+                           class="form-control" value="{{ form.city.value }}">
+                </div>
+                <label for="{{ form.street.id_for_label }}" class="mb-1">Street</label>
+                <div class="mb-3">
+                    <input type="text" name="{{ form.street.name }}" id="{{ form.street.id_for_label }}"
+                           class="form-control" value="{{ form.street.value }}">
+                </div>
+                <label for="{{ form.street_number.id_for_label }}" class="mb-1">Street Number</label>
+                <div class="mb-3">
+                    <input type="text" name="{{ form.street_number.name }}" id="{{ form.street_number.id_for_label }}"
+                           class="form-control" value="{{ form.street_number.value }}">
+                </div>
+                <label for="{{ form.address.id_for_label }}" class="mb-1">Address</label>
+                <div class="mb-3">
+                    <input type="text" name="{{ form.address.name }}" id="{{ form.address.id_for_label }}"
+                           class="form-control" value="{{ form.address.value }}">
+                </div>
+                <label for="{{ form.phone.id_for_label }}" class="mb-1">Phone</label>
+                <div class="mb-3">
+                    <input type="text" name="{{ form.phone.name }}" id="{{ form.phone.id_for_label }}"
+                           class="form-control" value="{{ form.phone.value }}">
+                </div>
+                <label for="{{ form.personal_email.id_for_label }}" class="mb-1">Personal Email</label>
+                <div class="mb-3">
+                    <input type="text" name="{{ form.personal_email.name }}" id="{{ form.personal_email.id_for_label }}"
+                           class="form-control" value="{{ form.personal_email.value }}">
+                </div>
+                <label for="{{ form.job_title.id_for_label }}" class="mb-1">Job Title</label>
+                <div class="mb-3">
+                    <select name="{{ form.job_title.name }}" id="{{ form.job_title.id_for_label }}"
+                            class="form-control">
+                        {% for value, label in form.job_title.field.choices %}
+                            <option value="{{ value }}"
+                                    {% if value == form.job_title.value %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <label for="{{ form.department.id_for_label }}" class="mb-1">Department</label>
+                <div class="mb-3">
+                    <select name="{{ form.department.name }}" id="{{ form.department.id_for_label }}"
+                            class="form-control">
+                        {% for value, label in form.department.field.choices %}
+                            <option value="{{ value }}"
+                                    {% if value == form.department.value %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <label for="{{ form.job_description.id_for_label }}" class="mb-1">Job Description</label>
+                <div class="mb-3">
+                    <input type="file" name="{{ form.job_description.name }}"
+                           id="{{ form.job_description.id_for_label }}"
+                           class="form-control" value="{{ form.job_description.value }}">
+                </div>
+                <label for="{{ form.resume.id_for_label }}" class="mb-1">Resume</label>
+                <div class="mb-3">
+                    <input type="file" name="{{ form.resume.name }}" id="{{ form.resume.id_for_label }}"
+                           class="form-control" value="{{ form.resume.value }}">
+                </div>
+                <label for="{{ form.superior.id_for_label }}" class="mb-1">Superior</label>
+                <div class="mb-3">
+                    <select name="{{ form.superior.name }}" id="{{ form.superior.id_for_label }}" class="form-control">
+                        <option value="" {% if not form.superior.value %}selected{% endif %}>---------</option>
+                        {% for user in form.superior.field.queryset %}
+                            <option value="{{ user.pk }}"
+                                    {% if user.pk == form.superior.value %}selected{% endif %}>{{ user.get_full_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary m-2">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

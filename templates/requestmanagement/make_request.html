@@ -1,0 +1,19 @@
+{% extends 'base_with_navbar.html' %}
+
+{% block title %} Make Request {% endblock %}
+
+{% block content %}
+    <div class="card shadow">
+        <form method="post">
+            {% csrf_token %}
+            <div class="card-body">
+                <h4 class="text-center mb-5">Make a request</h4>
+                <p class="text-muted">Please enter a start/end date only if the request implies this.</p>
+                {{ form.as_p }}
+                <div class="button-container text-center mt-5">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

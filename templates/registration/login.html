@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Login {% endblock %}
+
+{% block content %}
+    <div class="row g-0">
+        <div class="col-md-6 col-lg-5 d-none d-md-block">
+            <img src="{% static 'images/login.jpg' %}" alt="login form" class="img-fluid"/>
+        </div>
+        <div class="col-md-6 col-lg-7 d-flex align-items-center">
+            <div class="card-body p-4 p-lg-5 text-black">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row d-flex align-items-center mb-1 pb-1">
+                        <h5 class="fw-normal mb-3 pb-3">Sign into your account</h5>
+                        {{ form.as_p }}
+                    </div>
+                    <div class="button-container text-center mb-5">
+                        <button type="submit" class="login_btn btn btn-primary">Login</button>
+                    </div>
+                    <a class="small text-muted" href="{% url 'password-reset-form' %}">Forgot password?</a>
+                    <p class="txt mb-5 pb-lg-2">New manager? <a class="txt" href="{% url 'manager-sign-up' %}"
+                    >Register here</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
