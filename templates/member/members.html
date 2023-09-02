@@ -35,7 +35,7 @@
                                 <h6 class="subtitle mb-3">{{ member.job_title }}, {{ member.department }}</h6>
                                 <p class="email_text">{{ member.user.email }}</p>
                             </div>
-                            {% if user.is_manager %}
+                            {% if user.is_manager and member.user != user %}
                                 <ul class="members-list list-inline">
                                     <li class="members-list list-inline-item"><a
                                             href="{% url 'member-profile' member.id %}"

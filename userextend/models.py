@@ -39,7 +39,7 @@ class UserProfile(models.Model):
     street = models.CharField(max_length=30)
     street_number = models.IntegerField()
     address = models.CharField(max_length=70)
-    phone = models.IntegerField()
+    phone = models.CharField(max_length=10)
     personal_email = models.EmailField(max_length=50)
     start_date = models.DateField()
     job_title = models.ForeignKey(JobTitle, on_delete=models.SET_NULL, null=True)
@@ -62,9 +62,6 @@ class UserProfile(models.Model):
         if months < 0 or (months == 0 and days < 0):
             years -= 1
             months += 12
-
-        if months == 0 and days >= 0:
-            months += 1
 
         return f'{years} years, {months} months'
 

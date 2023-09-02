@@ -2,7 +2,6 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm, PasswordResetForm, \
     SetPasswordForm
-from django.contrib.auth.models import Group
 from django.core.validators import validate_email
 from django.db import transaction
 from userextend.models import UserProfile, JobTitle, Department
@@ -46,7 +45,7 @@ class BaseSignUpForm(forms.ModelForm):
     street = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     street_number = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
     address = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    phone = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    phone = forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
     personal_email = forms.EmailField(validators=[validate_email],
                                       widget=forms.EmailInput(attrs={'class': 'form-control'}))
     start_date = forms.DateField(widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}))
@@ -92,10 +91,8 @@ class ManagerSignUpForm(UserCreationForm, BaseSignUpForm):
     def save(self, commit=True):
         user = super(UserCreationForm, self).save(commit=False)
         user.is_manager = True
-        group = Group.objects.get(name='Managers')
         if commit:
             user.save()
-            user.groups.add(group)
             profile_data = {
                 key: value for key, value in self.cleaned_data.items()
                 if key not in ['username', 'email', 'password1', 'password2', 'first_name', 'last_name']

@@ -12,6 +12,7 @@ class RequestType(models.Model):
 
 
 class RequestManagement(models.Model):
+
     status_options = [('Pending', 'Pending'), ('Approved', 'Approved'), ('Declined', 'Declined')]
 
     requester = models.ForeignKey(User, on_delete=models.CASCADE, related_name='requests_maker')

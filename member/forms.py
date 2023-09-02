@@ -1,6 +1,5 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Group
 from django.db import transaction
 from userextend.forms import BaseSignUpForm
 from userextend.models import UserProfile, JobTitle, Department
@@ -28,12 +27,10 @@ class MemberSignUpForm(BaseSignUpForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.is_member = True
-        group = Group.objects.get(name='Members')
         random_password = User.objects.make_random_password()
         user.set_password(random_password)
         if commit:
             user.save()
-            user.groups.add(group)
             profile_data = {
                 key: value for key, value in self.cleaned_data.items()
                 if key not in ['username', 'email', 'password', 'first_name', 'last_name']

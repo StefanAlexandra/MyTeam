@@ -8,12 +8,12 @@ Managers:
 - can update their profile, and their team members profiles
 - can delete members from their team
 - can add, update, delete and see the list of all projects where they are part of or their team members
-- can assign, update, delete and view all the project related taks of their team
+- can assign, update, delete and view all the project related tasks of their team
 - can answer and view al the requests from their team members
 
 Members:
 - can edit their profile
 - can see the team they are part of
-- can see the list of projects that they are part of or their colegues
-- can view the tasks assiged to them and update the status
-- can submit diffrent types of requests to their manager and delete them
+- can see the list of projects that they are part of or their colleagues
+- can view the tasks assigned to them and update the status
+- can submit different types of requests to their manager and delete them
