@@ -88,12 +88,12 @@ DATABASES = {
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'myteamdb',
-        'USER': 'postgres',
+        'ENGINE': config('ENGINE'),
+        'NAME': config('NAME'),
+        'USER': config('USER'),
         'PASSWORD': config('PASSWORD'),
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'HOST': config('HOST'),
+        'PORT': config('PORT'),
     }
 }
 
