@@ -45,7 +45,7 @@ class BaseSignUpForm(forms.ModelForm):
     street = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     street_number = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
     address = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    phone = forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    phone = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     personal_email = forms.EmailField(validators=[validate_email],
                                       widget=forms.EmailInput(attrs={'class': 'form-control'}))
     start_date = forms.DateField(widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}))

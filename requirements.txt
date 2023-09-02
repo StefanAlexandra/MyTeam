@@ -1,7 +1,7 @@
 asgiref==3.7.2
 certifi==2023.7.22
 charset-normalizer==3.2.0
-Django==4.2.3
+Django==4.2.4
 django-filter==23.2
 django-forms-dynamic==1.0.0
 django-widget-tweaks==1.4.12
