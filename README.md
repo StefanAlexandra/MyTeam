@@ -17,3 +17,6 @@ Members:
 - can see the list of projects that they are part of or their colleagues
 - can view the tasks assigned to them and update the status
 - can submit different types of requests to their manager and delete them
+
+# Video
+https://www.youtube.com/watch?v=i8yBy1or2LQ
