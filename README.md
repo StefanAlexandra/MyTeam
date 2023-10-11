@@ -18,5 +18,9 @@ Members:
 - can view the tasks assigned to them and update the status
 - can submit different types of requests to their manager and delete them
 
-# Video
+# Demo
+You can watch a short demo video on youtube:
 https://www.youtube.com/watch?v=i8yBy1or2LQ
+
+Or you can try it yourself here:
+https://my-team-orpin-sigma.vercel.app/login/
