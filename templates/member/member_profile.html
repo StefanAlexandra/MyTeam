@@ -72,6 +72,9 @@
                 <p class="text-muted mb-3 fw-light"><a class="link_file" href='{{ profile.resume.url }}'>Resume -
                     File</a></p>
             {% endif %}
+            <div class="button-container text-center mt-3">
+                    <a href="{% url 'members' %}" class="btn btn-primary m-2">Back</a>
+                </div>
         </div>
     </div>
 {% endblock %}

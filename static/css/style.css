@@ -316,6 +316,7 @@ body {
     .sidebar.close ~ .home-section {
         left: 78px;
         width: calc(100% - 78px);
+
     }
 }
 
