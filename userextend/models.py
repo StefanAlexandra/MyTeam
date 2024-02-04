@@ -20,6 +20,8 @@ class JobTitle(models.Model):
 class User(AbstractUser):
     is_manager = models.BooleanField(default=False)
     is_member = models.BooleanField(default=False)
+    first_name = models.CharField(max_length=30, blank=False, null=False)
+    last_name = models.CharField(max_length=30, blank=False, null=False)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
@@ -33,13 +35,13 @@ class UserProfile(models.Model):
     birth_date = models.DateField()
     gender = models.CharField(choices=gender_options, max_length=6)
     profile_picture = models.ImageField(upload_to='profiles/', null=True, blank=True)
-    country = models.CharField(max_length=20)
+    country = models.CharField(max_length=50)
     county = models.CharField(max_length=20)
     city = models.CharField(max_length=20)
     street = models.CharField(max_length=30)
     street_number = models.IntegerField()
     address = models.CharField(max_length=70)
-    phone = models.CharField(max_length=10)
+    phone = models.CharField(max_length=30)
     personal_email = models.EmailField(max_length=50)
     start_date = models.DateField()
     job_title = models.ForeignKey(JobTitle, on_delete=models.SET_NULL, null=True)
@@ -57,9 +59,11 @@ class UserProfile(models.Model):
 
         years = today.year - birth_date.year
         months = today.month - birth_date.month
-        days = today.day - birth_date.day
 
-        if months < 0 or (months == 0 and days < 0):
+        if today.day < birth_date.day:
+            months -= 1
+
+        if months < 0:
             years -= 1
             months += 12
 
